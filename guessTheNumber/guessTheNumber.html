@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>guessTheNumber</title>
+
+
+
+
+	<style>
+
+	.calc{
+		font-family: fantasy;
+		margin: 20px auto;
+		padding: 10px 50px 30px;
+		min-width: 300px;
+		max-width: 400px;
+		border: 3px solid blanchedalmond;
+		border-radius: 10px;
+		background: lightblue;
+		text-align: justify;
+		border-radius: 10px;
+		box-shadow: 20px 20px 15px grey ;
+/*padding: 0 40px;*/
+
+	}
+.calc input, textarea{
+text-align: left;
+border-bottom: 1px solid #F4F4F4;
+border-left: 1px solid #E0E0E0;
+border-radius: 5px;
+border-right: 1px solid #E0E0E0;
+border-top: 1px solid #C0C0C0;
+box-shadow: 0px 1px 1px #C9C9C9 inset;
+background: lightyellow;
+}
+.answer{
+	text-shadow: 2px 2px 2px blanchedalmond;
+}
+button{
+	display: none;
+}
+
+
+	</style>
+</head>
+<body>
+
+	<div class='calc '>
+		<h2 >Игра «Угадай число»</h2>
+		<p> Игра должна случайным образом генерировать число от 0 до 100, затем игрок должен отгадать это число за 10 попыток. После каждой попытки игроку сообщают угадал он число или не угадал и если он ошибся, то ему сообщается, что загаданное число больше или меньше того, которое он ввёл. Так же необходимо показывать игроку числа из его предыдущих попыток. Игра будет окончена, если игрок угадал число верно или если у него кончатся все попытки. После окончания игры игроку будет дана возможность сыграть в игру ещё раз.</p>
+		<div class="form"> 
+			<label for="guessField">Enter a guess: </label>
+			<input type="text" id="guessField" class="guessField">
+			<input type="submit" value="Submit guess" class="guessSubmit"> 
+		</div>
+		<div class="resultParas">
+			<p class="guesses"></p>
+			<p class="lastResult" style="background-color: white;"></p>
+			<p class="lowOrHi"></p>
+		</div>
+		<button>Start new game</button>
+		<!-- <textarea name="" id="textarea" cols="30" rows="10"></textarea> -->
+		<!-- <div >
+			<h3 >Ответ:</h3>
+			<p class='answer'></p>
+		</div> -->
+	</div>
+
+	<script>
+
+		// let answer=document.querySelector('.answer');
+		let guesses=document.querySelector('.guesses');
+		let guessSubmit=document.querySelector('.guessSubmit');
+		let guessField=document.querySelector('.guessField');
+		let button=document.querySelector('button');
+		let lastResult=document.querySelector('.lastResult');
+		let lowOrHi=document.querySelector('.lowOrHi');
+		let randomNumber=Math.floor(Math.random()*101);
+		console.log(randomNumber)
+		let count=0;
+		guessSubmit.addEventListener('click', function listener(){
+			if (guessField.value=='') {
+				return
+			}
+			guesses.innerHTML=guesses.innerHTML+guessField.value+' ';
+			count=count+1;
+			if (+guessField.value=== randomNumber) {
+				lastResult.innerHTML='Congratulations! You got it right!';
+				lastResult.style.background='lightgreen';
+				guessField.disabled='true';	
+
+				button.style.display='inline';
+			}
+			if (+guessField.value!== randomNumber) {
+				lastResult.style.background='orange';
+
+				lastResult.innerHTML='Wrong!';
+				if (guessField.value<randomNumber) {
+					lowOrHi.innerHTML='Last guess was too low!';
+				}
+				if (guessField.value>randomNumber) {
+					lowOrHi.innerHTML='Last guess was too high!';
+				}
+			}
+			if(count===10){
+				console.log(guesses.innerHTML.split(' '))
+				lastResult.innerHTML='!!!GAME OVER!!!';
+				lowOrHi.innerHTML='';
+				guessField.disabled='true';	
+				button.style.display='inline';
+			}
+			guessField.value='';
+
+		});
+		button.addEventListener('click',function listener(){
+				guessField.disabled='';
+				guesses.innerHTML='';
+				lastResult.innerHTML='';
+				button.style.display='none';
+				
+		});
+
+	</script>
+ 
+</body>
+
+<!-- m07Nu8V4P6fFr6lZ -->
