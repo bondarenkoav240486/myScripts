@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2newPractic</title>
+
+
+js.Pr.St.MC №1
+
+
+	<style>
+
+	.calc{
+		margin: 20px auto;
+		padding: 0px 20px 30px;
+		width: 400px;
+		border: 3px solid blanchedalmond;
+		border-radius: 10px;
+		background: lightblue;
+		text-align: center;
+		border-radius: 10px;
+		box-shadow: 25px 25px 15px lightgrey;
+	}
+/*mfrac > *:first-child {
+    display: inline-table;
+    vertical-align: text-bottom;
+}*/
+mfrac {
+    display: inline-table;
+    white-space: nowrap;
+    border-collapse: collapse;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 2px;
+}
+/*mfrac > *:first-child {
+    display: inline-table;
+    vertical-align: text-bottom;
+}*/
+mfrac > * + * {
+    border-top: solid thin;
+    display: table-row;
+}
+.x, .discriminant{
+	font-size: 80%;
+}
+.x{
+	display: none;
+}
+.calc .enterCoefficient{
+text-align: right;
+border-bottom: 1px solid #F4F4F4;
+border-left: 1px solid #E0E0E0;
+border-radius: 5px;
+border-right: 1px solid #E0E0E0;
+border-top: 1px solid #C0C0C0;
+box-shadow: 0px 1px 1px #C9C9C9 inset;
+}
+
+	</style>
+</head>
+<body>
+
+	<div class='calc sqrEquation'>
+		<h2 >Калькулятор квадратных уравнений</h2>
+		<input size="2"  class="aCoefficient enterCoefficient">
+		<span class="oms_formula">x</span><sup>2</sup> +
+		<input size="2"  class="bCoefficient enterCoefficient">
+		<span class="oms_formula">x</span> +
+		<input size="2"  class="cCoefficient enterCoefficient"> = 0
+		<p>
+			<input class='letAnswerOfEquation' type="button" value="Решить квадратное уравнение">
+		</p>
+
+		<div class='answer'>
+			<h3 >Решение:</h3>
+			<p>Найдем дискриминант квадратного уравнения:</p>
+			<div class="discriminant">
+				D = b<sup>2</sup> - 4ac <span class="dValue"></span>
+			</div>
+			<p class="discriminantAnswer">
+			</p>
+			<p> 
+			</p>
+		</div>
+
+
+		<div class="x ">
+			
+			<p class="xFirst">
+				x <span class="xOnlyOne"> <sub>1</sub></span>=
+				<mfrac >
+					<mn>-b - √<span style="text-decoration: overline;">D</span></mn>
+					<mn>2·a</mn>
+				</mfrac>
+				<span class="x1value"></span>
+			</p>
+			<p class="xSecond">
+				x<sub>2</sub>=
+				<mfrac>
+					<mn>-b + √<span style="text-decoration: overline;">D</span></mn>
+					<mn>2·a</mn>
+				</mfrac>
+				<span class="x2value"></span>
+
+			</p>
+		</div>
+	</div>
+
+	<script>
+		
+		let aCoefficient=document.querySelector('.aCoefficient');
+		let bCoefficient=document.querySelector('.bCoefficient');
+		let cCoefficient=document.querySelector('.cCoefficient');
+		let discriminant=document.querySelector('.discriminant');
+		let discriminantAnswer=document.querySelector('.discriminantAnswer');
+		let x=document.querySelector('.x')
+		let xFirst=document.querySelector('.xFirst');
+		let xSecond=document.querySelector('.xSecond');
+		let letAnswerOfEquation=document.querySelector('.letAnswerOfEquation');
+		let dValue=document.querySelector('.dValue');
+		let x1value=document.querySelector('.x1value');
+		let x2value=document.querySelector('.x2value');
+		let xOnlyOne=document.querySelector('.xOnlyOne');
+		
+		letAnswerOfEquation.addEventListener('click', function listener(){
+			x.style.display='none';
+			
+			dValue.innerHTML='';
+			let D =Math.pow(bCoefficient.value,2)-4*aCoefficient.value*cCoefficient.value;
+			dValue.innerHTML=D;
+
+			if (D<0) {
+				dValue.innerHTML=' = '+D;
+				discriminantAnswer.innerHTML='Так как дискриминант меньше нуля, то уравнение не имеет действительных решений.'
+				return
+			};
+
+			if (+D==0) {
+				dValue.innerHTML=' = '+D;
+				discriminantAnswer.innerHTML='Так как дискриминант равен нулю то, квадратное уравнение имеет один действительный корень:'
+			x.style.display='block';
+			xSecond.style.display='none';
+			xOnlyOne.style.display='none';
+			x1value.innerHTML=' = '+(-bCoefficient.value-Math.sqrt(D))/(2*aCoefficient.value);	
+				return
+			}
+			
+			xSecond.style.display='block';
+			xOnlyOne.style.display='inline';
+				dValue.innerHTML=' = '+D;
+			discriminantAnswer.innerHTML='Так как дискриминант больше нуля то, квадратное уравнение имеет два действительных корня:';
+			x.style.display='block';
+				x1value.innerHTML=' = '+(-bCoefficient.value-Math.sqrt(D))/(2*aCoefficient.value);
+			x2value.innerHTML=' = '+(-bCoefficient.value+Math.sqrt(D))/(2*aCoefficient.value);
+
+		})
+	
+	</script>
+</body>
+
+<!-- m07Nu8V4P6fFr6lZ -->
